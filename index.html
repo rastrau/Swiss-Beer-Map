@@ -1,0 +1,58 @@
+<html>
+<!-- (c) Ralph Straumann, www.ralphstraumann.ch, 2014 -->
+
+<head>
+
+ <title>Swiss Beer Map</title>
+ <link rel="shortcut icon" href="beer.ico" />
+ 
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+ <!-- Facebook meta tags -->
+ <meta property="og:title" content="Swiss Beer Map"/>
+ <meta property="og:site_name" content="RalphStraumann.ch"/>
+ <meta property="og:url" content="http://www.ralphstraumann.ch/projects/swiss-beers/"/>
+ <meta property="og:description" content="A map of all Swiss breweries, big and small. Check it out and add your own favourites!"/>
+ <meta property="og:image" content="http://www.ralphstraumann.ch/projects/swiss-beers/share_picture.jpg"/>
+ <meta property="og:type" content="article" />
+ <meta property="article:author" content="https://www.facebook.com/spatialists"/>
+ <meta property="article:publisher" content="https://www.facebook.com/spatialists"/>
+
+ <!-- Twitter meta tags -->
+ <meta property="twitter:site" content="Swiss Beer Map">
+ <meta property="twitter:card" content="Swiss Beer Map">
+ <meta property="twitter:url" content="www.ralphstraumann.ch/projects/swiss-beers/">
+ <meta property="twitter:title" content="Swiss Beer Map">
+ <meta property="twitter:description" content="A map of all Swiss breweries, big and small. Check it out and add your own favourites!">
+ <meta property="twitter:image" content="http://www.ralphstraumann.ch/projects/swiss-beers/share_picture.jpg">
+
+ 
+ <link href='http://fonts.googleapis.com/css?family=Sarina' rel='stylesheet' type='text/css'>
+  
+ <script type="text/javascript" src="js/leaflet/leaflet.js"></script>
+ <script type="text/javascript" src="js/tabletop/tabletop.js"></script>
+ <script type="text/javascript" src="js/map.js"></script>
+ <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+ <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.2/Leaflet.fullscreen.min.js'></script>
+ <script src="js/leaflet/plugins/leaflet-zoom-min-master/L.Control.ZoomMin.js"></script>
+ <script src="js/leaflet/plugins/leaflet-minimap-master/Control.MiniMap.js"></script>
+ <script src="js/leaflet/plugins/leaflet-markercluster-master/leaflet.markercluster.js"></script>
+ 
+ 
+ <link rel="stylesheet" type="text/css" href="js/leaflet/leaflet.css" />
+ <link rel="stylesheet" href="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.2/leaflet.fullscreen.css" />
+ <link rel="stylesheet" href="js/leaflet/plugins/leaflet-zoom-min-master/L.Control.ZoomMin.css" media="screen">
+ <link rel="stylesheet" href="js/leaflet/plugins/leaflet-minimap-master/Control.MiniMap.css" media="screen">
+ <link rel="stylesheet" href="js/leaflet/plugins/leaflet-markercluster-master/MarkerCluster.css" media="screen">
+ <link rel="stylesheet" href="js/leaflet/plugins/leaflet-markercluster-master/MarkerCluster.Default.css" media="screen">   
+ <link rel="stylesheet" type="text/css" href="style.css" />
+ 
+</head>
+
+<body onload=initmap()>
+ <div id="title"><h2>Swiss Beer Map &mdash; courtesy of <a href="http://www.geobeer.ch">GeoBeer.ch&nbsp;</a></h2></div>
+ <div id="map" style="width:100%; height:550px"></div>
+</body>
+
+</html>
