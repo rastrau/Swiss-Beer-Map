@@ -11,6 +11,10 @@ function initmap() {
 	$('#map').height($(window).height()-$('#title').height()-75);
 	
 	
+	// Display "Loading..." symbol
+	$("body").addClass("loading");
+
+	
 	// Set up the map
 	map = new L.Map('map', {
 		center: [46.8, 8.2],
@@ -76,13 +80,13 @@ function initmap() {
 		// Build marker
 		marker_location = new L.LatLng(data[i].geolatitude, data[i].geolongitude);
 		if (data[i].owner == 'Heineken AG') {
-			var icon_url = 'beer_icon_heineken.png'
+			var icon_url = 'img/beer_icon_heineken.png'
 		}
 		else if (data[i].owner == 'Carlsberg A/S') {
-			var icon_url = 'beer_icon_carlsberg.png'
+			var icon_url = 'img/beer_icon_carlsberg.png'
 		}
 		else {
-			var icon_url = 'beer_icon.png'
+			var icon_url = 'img/beer_icon.png'
 		}
 		
 		marker = new L.Marker(marker_location,
@@ -113,6 +117,9 @@ function initmap() {
 	  }
 	  
 	  map.addLayer(markers);
+
+	// Remove "Loading..." symbol
+	$("body").removeClass("loading");
 	  
 	};
 	
@@ -123,7 +130,7 @@ function initmap() {
 		options: { position: 'bottomleft' },
 		onAdd: function (map) {
 			var container = L.DomUtil.create('div', 'legend');
-			container.innerHTML = "<img src='beer_icon.png' height=18px/> Independent brewer<br><img src='beer_icon_carlsberg.png' height=18px/> Brewer owned by Carlsberg A/S<br><img src='beer_icon_heineken.png' height=18px/> Brewer owned by Heineken AG<br><a href='https://docs.google.com/forms/d/1L3_8pJ3zrXg7faPyVTSzP_MhXPMgcYYiNF82852msV8/viewform'><b>Suggest additional breweries</b></a><br><a href='https://docs.google.com/spreadsheet/pub?key=0AjZGu43X1ynxdERiVThpS3p6RUMtRDZyeHdVRXJqdkE&single=true&gid=0&output=csv'>Download the data</a> / <a href='https://github.com/rastrau/SwissBeerMap'>Get the code</a>";
+			container.innerHTML = "<img src='img/beer_icon.png' height=18px/> Independent brewer<br><img src='img/beer_icon_carlsberg.png' height=18px/> Brewer owned by Carlsberg A/S<br><img src='img/beer_icon_heineken.png' height=18px/> Brewer owned by Heineken AG<br><a href='https://docs.google.com/forms/d/1L3_8pJ3zrXg7faPyVTSzP_MhXPMgcYYiNF82852msV8/viewform'><b>Suggest additional breweries</b></a><br><a href='https://docs.google.com/spreadsheet/pub?key=0AjZGu43X1ynxdERiVThpS3p6RUMtRDZyeHdVRXJqdkE&single=true&gid=0&output=csv'>Download the data</a> / <a href='https://github.com/rastrau/SwissBeerMap'>Get the code</a>";
 			
 			return container;
 		}
@@ -136,7 +143,7 @@ function initmap() {
 		options: { position: 'topright' },
 		onAdd: function (map) {
 			var container = L.DomUtil.create('div', 'social');
-			container.innerHTML = "<a target='_blank' href='http://twitter.com/share?via=rastrau&text=Check%20out%20the%20Swiss%20Beer%20Map:'><img src='twitter.png' /></a>&nbsp; <a target='_blank' href='http://www.facebook.com/sharer/sharer.php?u=http://www.ralphstraumann.ch/projects/swiss-beers'><img src='facebook.png' /></a>";
+			container.innerHTML = "<a target='_blank' href='http://twitter.com/share?via=rastrau&text=Check%20out%20the%20%23SwissBeerMap:'><img src='img/twitter.png' /></a>&nbsp; <a target='_blank' href='http://www.facebook.com/sharer/sharer.php?u=http://www.ralphstraumann.ch/projects/swiss-beers'><img src='img/facebook.png' /></a>";
 			return container;
 		}
 	});
