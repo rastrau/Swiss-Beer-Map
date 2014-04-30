@@ -11,7 +11,10 @@ A map of Swiss breweries, hosted on http://www.ralphstraumann.ch/projects/swiss-
 * a handful of Leaflet-plugins
 
 ###Preview
-[<img src="http://www.ralphstraumann.ch/projects/swiss-beers/share_picture.jpg"/>](http://www.ralphstraumann.ch/projects/swiss-beers)
+[<img src="http://www.ralphstraumann.ch/projects/swiss-beers/img/share_picture.jpg"/>](http://www.ralphstraumann.ch/projects/swiss-beers)
 
 ###Get involved
 I'm happy to collaborate on Beer Maps for e.g. the whole of Europe or DE-AT-CH, though these might need a more performant, scalable backend/data storage.
+
+###License
+CC-BY. Please provide a link to the Swiss Beer Map at http://www.ralphstraumann.ch/projects/swiss-beers if you use the code elsewhere.
