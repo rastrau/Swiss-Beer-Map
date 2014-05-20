@@ -78,7 +78,12 @@ function initmap() {
 	  for (var i = 0; i < data.length; i++) {
 		
 		// Build marker
-		marker_location = new L.LatLng(data[i].geolatitude, data[i].geolongitude);
+		try {
+			marker_location = new L.LatLng(data[i].geolatitude, data[i].geolongitude);
+		}
+		catch (e) {
+			continue;
+		}
 		if (data[i].owner == 'Heineken AG') {
 			var icon_url = 'img/beer_icon_heineken.png'
 		}
