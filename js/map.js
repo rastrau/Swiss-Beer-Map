@@ -78,7 +78,12 @@ function initmap() {
 	  for (var i = 0; i < data.length; i++) {
 		
 		// Build marker
-		marker_location = new L.LatLng(data[i].geolatitude, data[i].geolongitude);
+		try {
+			marker_location = new L.LatLng(data[i].geolatitude, data[i].geolongitude);
+		}
+		catch (e) {
+			continue;
+		}
 		if (data[i].owner == 'Heineken AG') {
 			var icon_url = 'img/beer_icon_heineken.png'
 		}
@@ -89,8 +94,9 @@ function initmap() {
 			var icon_url = 'img/beer_icon.png'
 		}
 		
-		marker = new L.Marker(marker_location,
-							{ icon: L.icon( { iconUrl: icon_url,
+		marker = new L.Marker(marker_location, { 
+							 title: data[i].brewery + ", " + data[i].place , 
+							 icon: L.icon( { iconUrl: icon_url,
 											  iconSize: [24, 25],
 											  iconAnchor: [12, 12],
 											  popupAnchor: [-3, -12]
@@ -117,6 +123,9 @@ function initmap() {
 	  }
 	  
 	  map.addLayer(markers);
+
+	  // add search box
+	  map.addControl( new L.Control.Search({layer: markers, initial: false, zoom: 14}) );
 
 	// Remove "Loading..." symbol
 	$("body").removeClass("loading");
