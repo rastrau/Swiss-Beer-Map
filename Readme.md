@@ -1,5 +1,5 @@
-SwissBeerMap: Mapping the breweries of Switzerland
---------------------------------------------------
+Swiss-Beer-Map: Mapping the breweries of Switzerland
+----------------------------------------------------
 
 A map of Swiss breweries, hosted on http://www.ralphstraumann.ch/projects/swiss-beers. 
 
