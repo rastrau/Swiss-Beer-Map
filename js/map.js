@@ -9,12 +9,10 @@ function initmap() {
 
 	// Size the map window to fit the browser window
 	$('#map').height($(window).height()-$('#title').height()-75);
-	
-	
+		
 	// Display "Loading..." symbol
 	$("body").addClass("loading");
 
-	
 	// Set up the map
 	map = new L.Map('map', {
 		center: [46.8, 8.2],
@@ -55,7 +53,7 @@ function initmap() {
 
 	Tabletop.init( { key: spreadsheet_key,
                      callback: mapInfo,
-                     simpleSheet: true } )
+                     simpleSheet: true } );
 
 	function mapInfo(data) {
 	  
@@ -77,56 +75,50 @@ function initmap() {
 	  
 	  for (var i = 0; i < data.length; i++) {
 		
-		// Build marker
-		try {
+		// Build marker, ignoring records without latitude values
+		if (!isNaN(parseFloat(data[i].geolatitude))) {
+
 			marker_location = new L.LatLng(data[i].geolatitude, data[i].geolongitude);
-		}
-		catch (e) {
-			continue;
-		}
-		if (data[i].owner == 'Heineken AG') {
-			var icon_url = 'img/beer_icon_heineken.png'
-		}
-		else if (data[i].owner == 'Carlsberg A/S') {
-			var icon_url = 'img/beer_icon_carlsberg.png'
-		}
-		else {
-			var icon_url = 'img/beer_icon.png'
-		}
+			if (data[i].owner == 'Heineken AG') {
+				var icon_url = 'img/beer_icon_heineken.png'
+			}
+			else if (data[i].owner == 'Carlsberg A/S') {
+				var icon_url = 'img/beer_icon_carlsberg.png'
+			}
+			else {
+				var icon_url = 'img/beer_icon.png'
+			}
+			
+			marker = new L.Marker(marker_location,
+								{ icon: L.icon( { iconUrl: icon_url,
+												  iconSize: [24, 25],
+												  iconAnchor: [12, 12],
+												  popupAnchor: [-3, -12]
+												})
+					});
 		
-		marker = new L.Marker(marker_location, { 
-							 title: data[i].brewery + ", " + data[i].place , 
-							 icon: L.icon( { iconUrl: icon_url,
-											  iconSize: [24, 25],
-											  iconAnchor: [12, 12],
-											  popupAnchor: [-3, -12]
-											})
-				});
-    
-    	// Build popup
-    	var popup = "<div class=popup_box" + "id=" + i+1 + ">";
-    	popup += "<div class='popup_box_header'><strong><a href='" + data[i].website + "'>" + data[i].brewery + "</a></strong></div>";
-		popup += data[i].owner;
-    	popup += "<hr/>";
-    	popup += data[i].address + "<br/>";
-    	popup += data[i].place + "<br/><hr/>";
-		popup += "<a href='mailto:ralph.straumann@gmail.com?Subject=Swiss Beer Map Error: ID ";
-		popup += i+1;
-		popup += "&body=Hello Ralph, I have found the following error with the Swiss Beer Map:'>Report an error</a>";
-    	popup += "</div>";
-    	
-		// Add popup to marker, add marker to marker-cluster group
-		marker.bindPopup(popup);
-		
-		markers.addLayer(marker);
+			// Build popup
+			var popup = "<div class=popup_box" + "id=" + i+1 + ">";
+			popup += "<div class='popup_box_header'><strong><a href='" + data[i].website + "'>" + data[i].brewery + "</a></strong></div>";
+			popup += data[i].owner;
+			popup += "<hr/>";
+			popup += data[i].address + "<br/>";
+			popup += data[i].plz + " " + data[i].place + "<br/><hr/>";
+			popup += "<a href='mailto:ralph.straumann@gmail.com?Subject=Swiss Beer Map Error: ID ";
+			popup += i+1;
+			popup += "&body=Hello Ralph, I have found the following error with the Swiss Beer Map:'>Report an error</a>";
+			popup += "</div>";
+			
+			// Add popup to marker, add marker to marker-cluster group
+			marker.bindPopup(popup);
+			
+			markers.addLayer(marker);
+		}
 		
 	  }
 	  
 	  map.addLayer(markers);
-
-	  // add search box
-	  map.addControl( new L.Control.Search({layer: markers, initial: false, zoom: 14}) );
-
+	  
 	// Remove "Loading..." symbol
 	$("body").removeClass("loading");
 	  
@@ -139,7 +131,7 @@ function initmap() {
 		options: { position: 'bottomleft' },
 		onAdd: function (map) {
 			var container = L.DomUtil.create('div', 'legend');
-			container.innerHTML = "<img src='img/beer_icon.png' height=18px/> Independent brewer<br><img src='img/beer_icon_carlsberg.png' height=18px/> Brewer owned by Carlsberg A/S<br><img src='img/beer_icon_heineken.png' height=18px/> Brewer owned by Heineken AG<br><a href='https://docs.google.com/forms/d/1L3_8pJ3zrXg7faPyVTSzP_MhXPMgcYYiNF82852msV8/viewform'><b>Suggest additional breweries</b></a><br><a href='https://docs.google.com/spreadsheet/pub?key=0AjZGu43X1ynxdERiVThpS3p6RUMtRDZyeHdVRXJqdkE&single=true&gid=0&output=csv'>Download the data</a> / <a href='https://github.com/rastrau/SwissBeerMap'>Get the code</a>";
+			container.innerHTML = "<img src='img/beer_icon.png' height=18px/> Independent brewer<br><img src='img/beer_icon_carlsberg.png' height=18px/> Brewer owned by Carlsberg A/S<br><img src='img/beer_icon_heineken.png' height=18px/> Brewer owned by Heineken AG<br><a href='https://docs.google.com/forms/d/1L3_8pJ3zrXg7faPyVTSzP_MhXPMgcYYiNF82852msV8/viewform'><b>Suggest additional breweries</b></a><br><a href='https://docs.google.com/spreadsheet/ccc?key=0AjZGu43X1ynxdERiVThpS3p6RUMtRDZyeHdVRXJqdkE&usp=sharing&output=csv'>Download the data</a> / <a href='https://github.com/rastrau/SwissBeerMap'>Get the code</a>";
 			
 			return container;
 		}
@@ -152,7 +144,7 @@ function initmap() {
 		options: { position: 'topright' },
 		onAdd: function (map) {
 			var container = L.DomUtil.create('div', 'social');
-			container.innerHTML = "<a target='_blank' href='http://twitter.com/share?via=rastrau&text=Check%20out%20the%20%23SwissBeerMap:'><img src='img/twitter.png' /></a>&nbsp; <a target='_blank' href='http://www.facebook.com/sharer/sharer.php?u=http://www.ralphstraumann.ch/projects/swiss-beers'><img src='img/facebook.png' /></a>";
+			container.innerHTML = "<a target='_blank' href='http://twitter.com/share?via=rastrau&text=Check%20out%20the%20Swiss%20Beer%20Map:'><img src='img/twitter.png' /></a>&nbsp; <a target='_blank' href='http://www.facebook.com/sharer/sharer.php?u=http://www.ralphstraumann.ch/projects/swiss-beers'><img src='img/facebook.png' /></a>";
 			return container;
 		}
 	});
